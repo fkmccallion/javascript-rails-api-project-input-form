@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :organization_categories
   resources :tags
   resources :categories
   resources :events
