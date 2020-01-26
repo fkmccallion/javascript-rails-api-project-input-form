@@ -1,6 +1,6 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "*" # In prduction, change to a specific hostname
+    origins "*" # In production, change to a specific hostnames
 
     resource '*',
       headers: :any,
