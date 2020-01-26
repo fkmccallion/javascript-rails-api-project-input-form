@@ -1,1 +1,0 @@
-# javascript-ruby-project-input-form
