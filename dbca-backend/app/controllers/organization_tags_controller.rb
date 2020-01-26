@@ -1,0 +1,2 @@
+class OrganizationTagsController < ApplicationController
+end

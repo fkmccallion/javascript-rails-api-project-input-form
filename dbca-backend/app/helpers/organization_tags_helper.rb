@@ -1,0 +1,2 @@
+module OrganizationTagsHelper
+end
