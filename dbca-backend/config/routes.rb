@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :categories
+  resources :events
   resources :organizations
   resources :hours
   resources :users
