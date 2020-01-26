@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sunStart: 2020-01-26 13:21:48
+  sunEnd: 2020-01-26 13:21:48
+  monStart: 2020-01-26 13:21:48
+  monEnd: 2020-01-26 13:21:48
+  tueStart: 2020-01-26 13:21:48
+  tueEnd: 2020-01-26 13:21:48
+  wedStart: 2020-01-26 13:21:48
+  wedEnd: 2020-01-26 13:21:48
+  thuStart: 2020-01-26 13:21:48
+  thuEnd: 2020-01-26 13:21:48
+  friStart: 2020-01-26 13:21:48
+  friEnd: 2020-01-26 13:21:48
+  satStart: 2020-01-26 13:21:48
+  satEnd: 2020-01-26 13:21:48
+
+two:
+  sunStart: 2020-01-26 13:21:48
+  sunEnd: 2020-01-26 13:21:48
+  monStart: 2020-01-26 13:21:48
+  monEnd: 2020-01-26 13:21:48
+  tueStart: 2020-01-26 13:21:48
+  tueEnd: 2020-01-26 13:21:48
+  wedStart: 2020-01-26 13:21:48
+  wedEnd: 2020-01-26 13:21:48
+  thuStart: 2020-01-26 13:21:48
+  thuEnd: 2020-01-26 13:21:48
+  friStart: 2020-01-26 13:21:48
+  friEnd: 2020-01-26 13:21:48
+  satStart: 2020-01-26 13:21:48
+  satEnd: 2020-01-26 13:21:48
