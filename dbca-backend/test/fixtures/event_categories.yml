@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_id: 
+  category_id: 
+  subCategory: MyText
+
+two:
+  event_id: 
+  category_id: 
+  subCategory: MyText
