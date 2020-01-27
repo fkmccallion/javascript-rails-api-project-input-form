@@ -1,4 +1,4 @@
-class Organization < ActiveRecord::Base
+class Organization < ApplicationRecord
   belongs_to :user
   belongs_to :hour
   has_many :events
