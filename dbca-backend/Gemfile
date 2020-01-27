@@ -36,6 +36,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Add 'rack-cors' for cross-origin resource sharing
 gem 'rack-cors'
 
+gem 'rails-api'
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
