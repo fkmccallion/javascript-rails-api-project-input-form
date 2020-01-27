@@ -8,7 +8,7 @@ class EventSerializer
     options = {
       include: {
         organization: {
-          only: [:id, :name]
+          only: [:name]
         }
       },
       except: [:updated_at, :created_at],
