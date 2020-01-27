@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200126224729) do
+ActiveRecord::Schema.define(version: 20200127203247) do
 
   create_table "categories", force: :cascade do |t|
     t.text     "name"
@@ -61,20 +61,20 @@ ActiveRecord::Schema.define(version: 20200126224729) do
   add_index "events", ["organization_id"], name: "index_events_on_organization_id"
 
   create_table "hours", force: :cascade do |t|
-    t.datetime "sunStart"
-    t.datetime "sunEnd"
-    t.datetime "monStart"
-    t.datetime "monEnd"
-    t.datetime "tueStart"
-    t.datetime "tueEnd"
-    t.datetime "wedStart"
-    t.datetime "wedEnd"
-    t.datetime "thuStart"
-    t.datetime "thuEnd"
-    t.datetime "friStart"
-    t.datetime "friEnd"
-    t.datetime "satStart"
-    t.datetime "satEnd"
+    t.string   "sunStart"
+    t.string   "sunEnd"
+    t.string   "monStart"
+    t.string   "monEnd"
+    t.string   "tueStart"
+    t.string   "tueEnd"
+    t.string   "wedStart"
+    t.string   "wedEnd"
+    t.string   "thuStart"
+    t.string   "thuEnd"
+    t.string   "friStart"
+    t.string   "friEnd"
+    t.string   "satStart"
+    t.string   "satEnd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

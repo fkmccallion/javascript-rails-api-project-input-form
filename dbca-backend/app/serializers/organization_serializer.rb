@@ -9,6 +9,9 @@ class OrganizationSerializer
       include: {
         user: {
           only: [:email]
+        },
+        hour: {
+          only: [:sunStart, :sunEnd, :monStart, :monEnd, :tueStart, :tueEnd, :wedStart, :wedEnd, :thuStart, :thuEnd, :friStart, :friEnd, :satStart, :satEnd]
         }
       },
       except: [:updated_at, :created_at],
