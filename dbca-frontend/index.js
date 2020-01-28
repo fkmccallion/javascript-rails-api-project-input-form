@@ -6,6 +6,10 @@ const ORGANIZATIONS_URL = `${BASE_URL}/organizations`
 const EVENTS_URL = `${BASE_URL}/events`
 const CATEGORIES_URL = `${BASE_URL}/categories`
 const TAGS_URL = `${BASE_URL}/tags`
+const ORGANIZATION_CATEGORIES_URL = `${BASE_URL}/organization_categories`
+const ORGANIZATION_TAGS_URL = `${BASE_URL}/organization_tags`
+const EVENT_CATEGORIES_URL = `${BASE_URL}/event_categories`
+const EVENT_TAGS_URL = `${BASE_URL}/event_tags`
 
 const users = [];
 const hours = [];
@@ -13,6 +17,10 @@ const orgs = [];
 const events = [];
 const categories = [];
 const tags = [];
+const organization_categories = [];
+const organization_tags = [];
+const event_categories = [];
+const event_tags = [];
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -85,6 +93,54 @@ document.addEventListener("DOMContentLoaded", function() {
       for (const element of json) {
         let n = new Tag(element);
         tags.push(n);
+      }
+    })
+
+  // create array of organizationCategory objects from users JSON data
+  fetch(ORGANIZATION_CATEGORIES_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new OrganizationCategory(element);
+        organization_categories.push(n);
+      }
+    })
+
+  // create array of organizationTag objects from users JSON data
+  fetch(ORGANIZATION_TAGS_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new OrganizationTag(element);
+        organization_tags.push(n);
+      }
+    })
+
+  // create array of eventCategory objects from users JSON data
+  fetch(EVENT_CATEGORIES_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new EventCategory(element);
+        event_categories.push(n);
+      }
+    })
+
+  // create array of organizationTag objects from users JSON data
+  fetch(EVENT_TAGS_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new EventTag(element);
+        event_tags.push(n);
       }
     })
 
