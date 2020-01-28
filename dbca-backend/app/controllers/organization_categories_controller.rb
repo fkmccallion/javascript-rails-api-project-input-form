@@ -9,4 +9,5 @@ class OrganizationCategoriesController < ApplicationController
     organizationCategory = OrganizationCategory.find_by(id: params[:id])
     render json: OrganizationCategorySerializer.new(organizationCategory).to_serialized_json
   end
+
 end
