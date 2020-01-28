@@ -52,3 +52,22 @@ class Organization {
     this.hour_id = orgValues[14];
   }
 }
+
+class Event {
+  constructor(obj) {
+    let eventValues = Object.values(obj);
+
+    this.id = eventValues[0];
+    this.name = eventValues[1];
+    this.description = eventValues[2];
+    this.phone = eventValues[3];
+    this.email = eventValues[4];
+    this.url = eventValues[5];
+    this.image = eventValues[6];
+    this.start = eventValues[7];
+    this.end = eventValues[8];
+    this.organization_id = eventValues[9];
+    this.hour_id = eventValues[10];
+    this.rank = eventValues[11];
+  }
+}

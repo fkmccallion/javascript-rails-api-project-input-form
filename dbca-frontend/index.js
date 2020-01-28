@@ -4,6 +4,7 @@ const USERS_URL = `${BASE_URL}/users`
 const HOURS_URL = `${BASE_URL}/hours`
 const ORGANIZATIONS_URL = `${BASE_URL}/organizations`
 const EVENTS_URL = `${BASE_URL}/events`
+const CATEGORIES_URL = `${BASE_URL}/categories`
 
 const users = [];
 const hours = [];
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // create array of event objects from users JSON data
   fetch(EVENTS_URL)
-    .then(function(respons) {
+    .then(function(response) {
       return response.json();
     })
     .then(function(json) {
@@ -59,5 +60,8 @@ document.addEventListener("DOMContentLoaded", function() {
         events.push(n);
       }
     })
+
+  // create array of event objects from users JSON data
+
 
 });
