@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
           orgs.push(n);
         }
       })
-    });
+});
 
 class Organization {
   constructor(obj) {
@@ -34,6 +34,7 @@ class Organization {
     this.website = orgValues[10];
     this.image = orgValues[11];
     this.rank = orgValues[12];
-
+    this.user_id = orgValues[13];
+    this.hour_id = orgValues[14];
   }
 }
