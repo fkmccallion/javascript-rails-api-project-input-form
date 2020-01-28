@@ -1,20 +1,43 @@
 const BASE_URL = "http://localhost:3000"
 const ORGANIZATIONS_URL = `${BASE_URL}/organizations`
+const USERS_URL = `${BASE_URL}/users`
 
 const orgs = [];
+const users = [];
 
 document.addEventListener("DOMContentLoaded", function() {
+  // create array of user objects from users JSON data
+  fetch(USERS_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new User(element)
+        users.push(n);
+      }
+    })
+  // create array of organization objects from users JSON data
   fetch(ORGANIZATIONS_URL)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(json) {
-        for (const element of json) {
-          let n = new Organization(element)
-          orgs.push(n);
-        }
-      })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new Organization(element)
+        orgs.push(n);
+      }
+    })
 });
+
+class User {
+  constructor(obj) {
+    let userValues = Object.values(obj);
+
+    this.id = userValues[0];
+    this.email = userValues[1];
+  }
+}
 
 class Organization {
   constructor(obj) {
