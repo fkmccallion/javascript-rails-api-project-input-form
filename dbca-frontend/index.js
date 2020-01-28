@@ -10,6 +10,7 @@ const users = [];
 const hours = [];
 const orgs = [];
 const events = [];
+const categories = [];
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -62,6 +63,15 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
   // create array of event objects from users JSON data
-
+  fetch(CATEGORIES_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new Category(element);
+        categories.push(n);
+      }
+    })
 
 });

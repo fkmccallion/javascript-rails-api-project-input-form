@@ -71,3 +71,13 @@ class Event {
     this.rank = eventValues[11];
   }
 }
+
+class Category {
+  constructor(obj) {
+    let catValues = Object.values(obj);
+
+    this.id = catValues[0];
+    this.name = catValues[1];
+    this.rank = catValues[2];
+  }
+}
