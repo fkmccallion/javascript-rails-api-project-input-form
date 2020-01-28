@@ -81,3 +81,13 @@ class Category {
     this.rank = catValues[2];
   }
 }
+
+class Tag {
+  constructor(obj) {
+    let tagValues = Object.values(obj);
+
+    this.id = tagValues[0];
+    this.name = tagValues[1];
+    this.rank = tagValues[2];
+  }
+}

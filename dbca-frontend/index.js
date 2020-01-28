@@ -5,12 +5,14 @@ const HOURS_URL = `${BASE_URL}/hours`
 const ORGANIZATIONS_URL = `${BASE_URL}/organizations`
 const EVENTS_URL = `${BASE_URL}/events`
 const CATEGORIES_URL = `${BASE_URL}/categories`
+const TAGS_URL = `${BASE_URL}/tags`
 
 const users = [];
 const hours = [];
 const orgs = [];
 const events = [];
 const categories = [];
+const tags = [];
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     })
 
-  // create array of event objects from users JSON data
+  // create array of category objects from users JSON data
   fetch(CATEGORIES_URL)
     .then(function(response) {
       return response.json();
@@ -71,6 +73,18 @@ document.addEventListener("DOMContentLoaded", function() {
       for (const element of json) {
         let n = new Category(element);
         categories.push(n);
+      }
+    })
+
+  // create array of tag objects from users JSON data
+  fetch(TAGS_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new Tag(element);
+        tags.push(n);
       }
     })
 
