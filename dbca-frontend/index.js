@@ -11,6 +11,9 @@ const ORGANIZATION_TAGS_URL = `${BASE_URL}/organization_tags`
 const EVENT_CATEGORIES_URL = `${BASE_URL}/event_categories`
 const EVENT_TAGS_URL = `${BASE_URL}/event_tags`
 
+/* to be used in refactoring iteration loop */
+const URL_ARRAY = [USERS_URL, HOURS_URL, ORGANIZATIONS_URL, EVENTS_URL, CATEGORIES_URL, TAGS_URL, ORGANIZATION_CATEGORIES_URL, ORGANIZATION_TAGS_URL, EVENT_CATEGORIES_URL, EVENT_TAGS_URL]
+
 const users = [];
 const hours = [];
 const orgs = [];
@@ -22,6 +25,8 @@ const organization_tags = [];
 const event_categories = [];
 const event_tags = [];
 
+
+/* refactor fetch requests in an iteration loop */
 document.addEventListener("DOMContentLoaded", function() {
 
   // create array of user objects from users JSON data
