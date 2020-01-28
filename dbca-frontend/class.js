@@ -91,3 +91,45 @@ class Tag {
     this.rank = tagValues[2];
   }
 }
+
+class OrganizationCategory {
+  constructor(obj) {
+    let orgCatValues = Object.values(obj);
+
+    this.id = orgCatValues[0];
+    this.organization_id = orgCatValues[1];
+    this.category_id = orgCatValues[2];
+    this.subCategory = orgCatValues[3]
+  }
+}
+
+class OrganizationTag {
+  constructor(obj) {
+    let orgTagValues = Object.values(obj);
+
+    this.id = orgTagValues[0];
+    this.organization_id = orgTagValues[1];
+    this.tag_id = orgTagValues[2];
+  }
+}
+
+class EventCategory {
+  constructor(obj) {
+    let eventCatValues = Object.values(obj);
+
+    this.id = eventCatValues[0];
+    this.event_id = eventCatValues[1];
+    this.category_id = eventCatValues[2];
+    this.subCategory = eventCatValues[3]
+  }
+}
+
+class EventTag {
+  constructor(obj) {
+    let eventTagValues = Object.values(obj);
+
+    this.id = eventTagValues[0];
+    this.event_id = eventTagValues[1];
+    this.tag_id = eventTagValues[2];
+  }
+}
