@@ -77,6 +77,19 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     })
 
+    // create array of tag objects from users JSON data
+    fetch(TAGS_URL)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(json) {
+        for (const element of json) {
+          let n = new Tag(element);
+          tags.push(n);
+        }
+        updateTagsToSearchPane();
+      })
+
   // create array of category objects from users JSON data
   fetch(CATEGORIES_URL)
     .then(function(response) {
@@ -87,20 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let n = new Category(element);
         categories.push(n);
       }
-      updateCatsToSearch();
-    })
-
-  // create array of tag objects from users JSON data
-  fetch(TAGS_URL)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(json) {
-      for (const element of json) {
-        let n = new Tag(element);
-        tags.push(n);
-      }
-      updateTagsToSearch();
+      updateCatsToSearchPane();
     })
 
   // create array of organizationCategory objects from users JSON data
