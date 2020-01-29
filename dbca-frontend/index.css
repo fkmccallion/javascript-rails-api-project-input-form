@@ -1,7 +1,5 @@
-.floatLeft {
+.spanStyle {
   float: left;
-}
-
-.spanPadding {
   padding: 25px;
+  border-style: solid;
 }

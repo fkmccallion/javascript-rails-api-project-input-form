@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let n = new Organization(element);
         orgs.push(n);
       }
+      updateOrgsToResultPane();
     })
 
   // create array of event objects from users JSON data
