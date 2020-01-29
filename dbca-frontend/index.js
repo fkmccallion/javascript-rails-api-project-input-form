@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function() {
   orgSpan.classList.add('spanStyle');
   resultPane.appendChild(orgSpan);
 
+  // create event span
+  eventSpan = document.createElement('span');
+  eventSpan.setAttribute('id', 'events')
+  eventSpan.classList.add('spanStyle');
+  resultPane.appendChild(eventSpan);
+
   // append search and result pane to display container
   let displayContainer = document.querySelector('main');
   displayContainer.appendChild(searchPane);
@@ -34,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+// increment cat, tag, org, or event rank
 function updateRank(type, o) {
+
   let rankUpdate = ++o.rank
-  console.log(rankUpdate);
 
   let configObj = {
     method: "PATCH",
@@ -48,6 +55,7 @@ function updateRank(type, o) {
       'rank': `${rankUpdate}`
     })
   };
+
   switch(type) {
     case 'categories':
       fetch(CATEGORIES_URL + `/${o.id}`, configObj);
@@ -58,7 +66,11 @@ function updateRank(type, o) {
     case 'organizations':
       fetch(ORGANIZATIONS_URL + `/${o.id}`, configObj);
       break;
+    case 'events':
+      fetch(EVENTS_URL + `/${o.id}`, configObj);
+      break;
   }
+
 }
 
 // update organizations to result pane
@@ -87,6 +99,36 @@ function updateOrgsToResultPane() {
 
     p.appendChild(a);
     orgSpan.appendChild(p);
+  }
+
+}
+
+// update events to result pane
+function updateEventsToResultPane() {
+
+  // clear existing event span in search pane
+  let eventSpan = document.getElementById('events');
+  while (eventSpan.firstChild) {
+    eventSpan.removeChild(eventSpan.firstChild);
+  }
+
+  // sort events by rank
+  events.sort((a, b) => (a.rank < b.rank) ? 1 : -1)
+
+  // populate span container with sorted events
+  for (const eve of events) {
+    let p = document.createElement('p');
+    let a = document.createElement('a');
+
+    a.innerHTML = eve.name;
+    a.setAttribute('href', '#'); /* update style later */
+    a.addEventListener('click', function(event) {
+      event.preventDefault();
+      updateRank('events', eve);
+    });
+
+    p.appendChild(a);
+    eventSpan.appendChild(p);
   }
 
 }

@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let n = new Event(element);
         events.push(n);
       }
+      updateEventsToResultPane();
     })
 
     // create array of tag objects from users JSON data
