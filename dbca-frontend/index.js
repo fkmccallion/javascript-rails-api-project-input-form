@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // increment cat, tag, org, or event rank
-function updateRank(type, o) {
+function updateRank(o) {
 
   let rankUpdate = ++o.rank
 
@@ -61,17 +61,17 @@ function updateRank(type, o) {
     })
   };
 
-  switch(type) {
-    case 'categories':
+  switch(o.constructor.name) {
+    case 'Category':
       fetch(CATEGORIES_URL + `/${o.id}`, configObj);
       break;
-    case 'tags':
+    case 'Tag':
       fetch(TAGS_URL + `/${o.id}`, configObj);
       break;
-    case 'organizations':
+    case 'Organization':
       fetch(ORGANIZATIONS_URL + `/${o.id}`, configObj);
       break;
-    case 'events':
+    case 'Event':
       fetch(EVENTS_URL + `/${o.id}`, configObj);
       break;
   }
@@ -139,7 +139,7 @@ function updateOrgsToResultPane(orgIds = false) {
     a.setAttribute('href', '#'); /* update style later */
     a.addEventListener('click', function(event) {
       event.preventDefault();
-      updateRank('organizations', org);
+      updateRank(org);
       updateDisplayPane(org);
     });
 
@@ -178,7 +178,7 @@ function updateEventsToResultPane(eventIds = false) {
     a.setAttribute('href', '#'); /* update style later */
     a.addEventListener('click', function(event) {
       event.preventDefault();
-      updateRank('events', eve);
+      updateRank(eve);
       updateDisplayPane(eve);
     });
 
@@ -262,7 +262,7 @@ function updateCatsToSearchPane() {
     a.setAttribute('href', '#'); /* update style later */
     a.addEventListener('click', function(event) {
       event.preventDefault();
-      updateRank('categories', cat);
+      updateRank(cat);
       updateSearchPane('categories', cat);
     });
 
@@ -292,7 +292,7 @@ function updateTagsToSearchPane() {
     a.setAttribute('href', '#'); /* update style later */
     a.addEventListener('click', function(event) {
       event.preventDefault();
-      updateRank('tags', tag);
+      updateRank(tag);
       updateSearchPane('tags', tag);
     });
 
