@@ -3,3 +3,14 @@
   padding: 25px;
   border-style: solid;
 }
+
+.imgAttr {
+  height: 100px;
+  padding-right: 25px;
+  padding-bottom: 25px;
+}
+
+.info {
+  display: inline-block;
+  vertical-align: top;
+}

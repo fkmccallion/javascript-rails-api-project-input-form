@@ -77,6 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
         events.push(n);
       }
       updateEventsToResultPane();
+
+      // select highest ranked event and display
+      events.sort((a, b) => (a.rank < b.rank) ? 1 : -1)
+      updateDisplayPane(events[0]);
     })
 
     // create array of tag objects from users JSON data

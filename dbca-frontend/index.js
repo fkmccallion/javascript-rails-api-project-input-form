@@ -1,18 +1,22 @@
 // build search and result pane templates
 document.addEventListener("DOMContentLoaded", function() {
 
+  // create display pane
+  let displayPane = document.createElement('div');
+  displayPane.setAttribute('id', 'display');
+
   // create search pane
   let searchPane = document.createElement('div');
   searchPane.setAttribute('id', 'search');
 
   // create cat span
-  catSpan = document.createElement('span');
+  let catSpan = document.createElement('span');
   catSpan.setAttribute('id', 'cats')
   catSpan.classList.add('spanStyle');
   searchPane.appendChild(catSpan);
 
   // create tag span
-  tagSpan = document.createElement('span');
+  let tagSpan = document.createElement('span');
   tagSpan.setAttribute('id', 'tags')
   tagSpan.classList.add('spanStyle');
   searchPane.appendChild(tagSpan);
@@ -22,19 +26,20 @@ document.addEventListener("DOMContentLoaded", function() {
   resultPane.setAttribute('id', 'result');
 
   // create org span
-  orgSpan = document.createElement('span');
+  let orgSpan = document.createElement('span');
   orgSpan.setAttribute('id', 'orgs')
   orgSpan.classList.add('spanStyle');
   resultPane.appendChild(orgSpan);
 
   // create event span
-  eventSpan = document.createElement('span');
+  let eventSpan = document.createElement('span');
   eventSpan.setAttribute('id', 'events')
   eventSpan.classList.add('spanStyle');
   resultPane.appendChild(eventSpan);
 
   // append search and result pane to display container
   let displayContainer = document.querySelector('main');
+  displayContainer.appendChild(displayPane);
   displayContainer.appendChild(searchPane);
   displayContainer.appendChild(resultPane);
 
@@ -73,8 +78,40 @@ function updateRank(type, o) {
 
 }
 
+// populate display pane
+function updateDisplayPane(o) {
+
+  // clear existing display pane
+  let div = document.getElementById('display');
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+
+  // creqte DOM elements
+  let image = document.createElement('img');
+  let h3 = document.createElement('h3');
+  let description = document.createElement('span');
+  let info = document.createElement('div')
+
+  // assign info to DOM elements
+  h3.innerHTML = o.name;
+  description.innerHTML = o.description;
+  image.setAttribute('src', o.image);
+
+  // assign styles
+  image.classList.add('imgAttr');
+  info.classList.add('info');
+
+  // append children
+  info.appendChild(h3);
+  info.appendChild(description);
+  div.appendChild(image);
+  div.appendChild(info);
+
+}
+
 // update organizations to result pane
-function updateOrgsToResultPane() {
+function updateOrgsToResultPane(orgIds = false) {
 
   // clear existing organization span in search pane
   let orgSpan = document.getElementById('orgs');
@@ -85,8 +122,16 @@ function updateOrgsToResultPane() {
   // sort organizations by rank
   orgs.sort((a, b) => (a.rank < b.rank) ? 1 : -1)
 
+  // determine if all orgs or selected orgs
+  let orgsArray = {};
+  if (orgIds) {
+    orgsArray = orgIds;
+  } else {
+    orgsArray = orgs;
+  }
+
   // populate span container with sorted organizations
-  for (const org of orgs) {
+  for (const org of orgsArray) {
     let p = document.createElement('p');
     let a = document.createElement('a');
 
@@ -95,6 +140,7 @@ function updateOrgsToResultPane() {
     a.addEventListener('click', function(event) {
       event.preventDefault();
       updateRank('organizations', org);
+      updateDisplayPane(org);
     });
 
     p.appendChild(a);
@@ -104,7 +150,7 @@ function updateOrgsToResultPane() {
 }
 
 // update events to result pane
-function updateEventsToResultPane() {
+function updateEventsToResultPane(eventIds = false) {
 
   // clear existing event span in search pane
   let eventSpan = document.getElementById('events');
@@ -115,8 +161,16 @@ function updateEventsToResultPane() {
   // sort events by rank
   events.sort((a, b) => (a.rank < b.rank) ? 1 : -1)
 
+  // determine if all events or selected events
+  let eventsArray = {};
+  if (eventIds) {
+    eventsArray = eventIds;
+  } else {
+    eventsArray = events;
+  }
+
   // populate span container with sorted events
-  for (const eve of events) {
+  for (const eve of eventsArray) {
     let p = document.createElement('p');
     let a = document.createElement('a');
 
@@ -125,11 +179,65 @@ function updateEventsToResultPane() {
     a.addEventListener('click', function(event) {
       event.preventDefault();
       updateRank('events', eve);
+      updateDisplayPane(eve);
     });
 
     p.appendChild(a);
     eventSpan.appendChild(p);
   }
+
+}
+
+// update search panel according to category or tag selection
+function updateSearchPane(type, o) {
+
+  // callback functions for filters
+  function callbackIdCats(v) {
+    return v.category_id == o.id
+  }
+  function callbackIdTags(v) {
+    return v.tag_id == o.id
+  }
+  function callbackOrg(org) {
+    return orgIds.includes(org.id);
+  }
+  function callbackEvent(eve) {
+    return eventIds.includes(eve.id);
+  }
+
+  let orgIds = [];
+  let eventIds = [];
+
+
+  // determine object type
+  if (type == 'categories') {
+
+    // retrieve relevent orgs
+    let org_cats = organization_categories.filter(callbackIdCats);
+    orgIds = org_cats.map(org => org.organization_id);
+
+    // retrieve relevent events
+    let event_cats = event_categories.filter(callbackIdCats);
+    eventIds = event_cats.map(eve => eve.event_id);
+
+  } else if (type == 'tags') {
+
+    // retrieve relevent orgs
+    let org_tags = organization_tags.filter(callbackIdTags);
+    orgIds = org_tags.map(tag => tag.organization_id);
+
+    // retrieve relevent events
+    let eventTags = event_tags.filter(callbackIdTags);
+    eventIds = eventTags.map(eve => eve.event_id);
+
+  }
+
+  let orgObjs = orgs.filter(callbackOrg);
+  let eventObjs = events.filter(callbackEvent);
+
+  // update result panes
+  updateOrgsToResultPane(orgObjs);
+  updateEventsToResultPane(eventObjs);
 
 }
 
@@ -155,6 +263,7 @@ function updateCatsToSearchPane() {
     a.addEventListener('click', function(event) {
       event.preventDefault();
       updateRank('categories', cat);
+      updateSearchPane('categories', cat);
     });
 
     p.appendChild(a);
@@ -184,6 +293,7 @@ function updateTagsToSearchPane() {
     a.addEventListener('click', function(event) {
       event.preventDefault();
       updateRank('tags', tag);
+      updateSearchPane('tags', tag);
     });
 
     p.appendChild(a);
