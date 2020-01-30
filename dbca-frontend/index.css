@@ -14,3 +14,11 @@
   display: inline-block;
   vertical-align: top;
 }
+
+.toggleHidden {
+  display: none;
+}
+
+.editPosition {
+  float: right;
+}

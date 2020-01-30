@@ -1,6 +1,29 @@
 // build search and result pane templates
 document.addEventListener("DOMContentLoaded", function() {
 
+  // create edit link
+  let editButton = document.createElement('button');
+  editButton.setAttribute('id', 'edit');
+  editButton.classList.add('editPosition');
+  editButton.innerHTML = 'edit';
+  editButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    if (editButton.innerHTML === 'edit') {
+      editPane.classList.remove('toggleHidden');
+      editButton.innerHTML = 'close';
+    } else {
+      editPane.classList.add('toggleHidden');
+      editButton.innerHTML = 'edit';
+    }
+
+  });
+
+  // create edit pane
+  let editPane = document.createElement('div');
+  editPane.setAttribute('id', 'edit');
+  editPane.classList.add('toggleHidden');
+  editPane.innerHTML = "test"
+
   // create display pane
   let displayPane = document.createElement('div');
   displayPane.setAttribute('id', 'display');
@@ -39,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // append search and result pane to display container
   let displayContainer = document.querySelector('main');
+  displayContainer.appendChild(editButton);
   displayContainer.appendChild(displayPane);
+  displayContainer.appendChild(editPane);
   displayContainer.appendChild(searchPane);
   displayContainer.appendChild(resultPane);
 
