@@ -11,7 +11,7 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    Organization.create(name: params[:name], description: params[:description])
+    Organization.create(name: params[:name], description: params[:description], image: params[:image], rank: 1)  
     organizations = Organization.all
     render json: OrganizationSerializer.new(organizations).to_serialized_json
   end
