@@ -10,6 +10,12 @@ class OrganizationsController < ApplicationController
     render json: OrganizationSerializer.new(organization).to_serialized_json
   end
 
+  def create
+    Organization.create(name: params[:name], description: params[:description])
+    organizations = Organization.all
+    render json: OrganizationSerializer.new(organizations).to_serialized_json
+  end
+
   def update
     organization = Organization.find_by(id: params[:id])
     organization.update(rank: params[:rank])
