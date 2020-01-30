@@ -189,7 +189,7 @@ function updateEventsToResultPane(eventIds = false) {
 }
 
 // update search panel according to category or tag selection
-function updateSearchPane(type, o) {
+function updateSearchPane(o) {
 
   // callback functions for filters
   function callbackIdCats(v) {
@@ -210,7 +210,7 @@ function updateSearchPane(type, o) {
 
 
   // determine object type
-  if (type == 'categories') {
+  if (o.constructor.name == 'Category') {
 
     // retrieve relevent orgs
     let org_cats = organization_categories.filter(callbackIdCats);
@@ -220,7 +220,7 @@ function updateSearchPane(type, o) {
     let event_cats = event_categories.filter(callbackIdCats);
     eventIds = event_cats.map(eve => eve.event_id);
 
-  } else if (type == 'tags') {
+  } else if (o.constructor.name == 'Tag') {
 
     // retrieve relevent orgs
     let org_tags = organization_tags.filter(callbackIdTags);
@@ -263,7 +263,7 @@ function updateCatsToSearchPane() {
     a.addEventListener('click', function(event) {
       event.preventDefault();
       updateRank(cat);
-      updateSearchPane('categories', cat);
+      updateSearchPane(cat);
     });
 
     p.appendChild(a);
@@ -293,7 +293,7 @@ function updateTagsToSearchPane() {
     a.addEventListener('click', function(event) {
       event.preventDefault();
       updateRank(tag);
-      updateSearchPane('tags', tag);
+      updateSearchPane(tag);
     });
 
     p.appendChild(a);
