@@ -6,4 +6,5 @@ class Organization < ApplicationRecord
   has_many :categories, through: :organization_categories
   has_many :organization_tags
   has_many :tags, through: :organization_tags
+
 end
