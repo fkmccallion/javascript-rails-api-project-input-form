@@ -14,22 +14,43 @@ const EVENT_TAGS_URL = `${BASE_URL}/event_tags`
 /* to be used in refactoring iteration loop */
 const URL_ARRAY = [USERS_URL, HOURS_URL, ORGANIZATIONS_URL, EVENTS_URL, CATEGORIES_URL, TAGS_URL, ORGANIZATION_CATEGORIES_URL, ORGANIZATION_TAGS_URL, EVENT_CATEGORIES_URL, EVENT_TAGS_URL]
 
-const users = [];
-const hours = [];
-const orgs = [];
-const events = [];
-const categories = [];
-const tags = [];
-const organization_categories = [];
-const organization_tags = [];
-const event_categories = [];
-const event_tags = [];
+let users = [];
+let hours = [];
+let orgs = [];
+let events = [];
+let categories = [];
+let tags = [];
+let organization_categories = [];
+let organization_tags = [];
+let event_categories = [];
+let event_tags = [];
 
 
 /* refactor fetch requests in an iteration loop */
 document.addEventListener("DOMContentLoaded", function() {
 
+  updateObjects();
+
+});
+
+function updateObjects() {
+
+  updateUsers();
+  updateHours();
+  updateOrganizations();
+  updateEvents();
+  updateTags();
+  updateCategories();
+  updateOrganizationCategories();
+  updateOrganizationTags();
+  updateEventCategories();
+  updateEventTags();
+
+}
+
+function updateUsers() {
   // create array of user objects from users JSON data
+  users = [];
   fetch(USERS_URL)
     .then(function(response) {
       return response.json();
@@ -40,8 +61,11 @@ document.addEventListener("DOMContentLoaded", function() {
         users.push(n);
       }
     })
+}
 
+function updateHours() {
   // create array of user objects from users JSON data
+  hours = [];
   fetch(HOURS_URL)
     .then(function(response) {
       return response.json();
@@ -52,8 +76,11 @@ document.addEventListener("DOMContentLoaded", function() {
         hours.push(n);
       }
     })
+}
 
+function updateOrganizations() {
   // create array of organization objects from users JSON data
+  orgs = [];
   fetch(ORGANIZATIONS_URL)
     .then(function(response) {
       return response.json();
@@ -65,8 +92,11 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       updateOrgsToResultPane();
     })
+}
 
+function updateEvents() {
   // create array of event objects from users JSON data
+  events = [];
   fetch(EVENTS_URL)
     .then(function(response) {
       return response.json();
@@ -82,21 +112,27 @@ document.addEventListener("DOMContentLoaded", function() {
       events.sort((a, b) => (a.rank < b.rank) ? 1 : -1)
       updateDisplayPane(events[0]);
     })
+}
 
-    // create array of tag objects from users JSON data
-    fetch(TAGS_URL)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(json) {
-        for (const element of json) {
-          let n = new Tag(element);
-          tags.push(n);
-        }
-        updateTagsToSearchPane();
-      })
+function updateTags() {
+  // create array of tag objects from users JSON data
+  tags = [];
+  fetch(TAGS_URL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(json) {
+      for (const element of json) {
+        let n = new Tag(element);
+        tags.push(n);
+      }
+      updateTagsToSearchPane();
+    })
+}
 
+function updateCategories() {
   // create array of category objects from users JSON data
+  categories = [];
   fetch(CATEGORIES_URL)
     .then(function(response) {
       return response.json();
@@ -108,9 +144,12 @@ document.addEventListener("DOMContentLoaded", function() {
       }
       updateCatsToSearchPane();
     })
+}
 
+function updateOrganizationCategories() {
   // create array of organizationCategory objects from users JSON data
-  fetch(ORGANIZATION_CATEGORIES_URL)
+  organization_categories = [];
+    fetch(ORGANIZATION_CATEGORIES_URL)
     .then(function(response) {
       return response.json();
     })
@@ -120,8 +159,11 @@ document.addEventListener("DOMContentLoaded", function() {
         organization_categories.push(n);
       }
     })
+}
 
+function updateOrganizationTags() {
   // create array of organizationTag objects from users JSON data
+  organization_tags = [];
   fetch(ORGANIZATION_TAGS_URL)
     .then(function(response) {
       return response.json();
@@ -132,8 +174,11 @@ document.addEventListener("DOMContentLoaded", function() {
         organization_tags.push(n);
       }
     })
+}
 
+function updateEventCategories() {
   // create array of eventCategory objects from users JSON data
+  event_categories = [];
   fetch(EVENT_CATEGORIES_URL)
     .then(function(response) {
       return response.json();
@@ -144,8 +189,11 @@ document.addEventListener("DOMContentLoaded", function() {
         event_categories.push(n);
       }
     })
+}
 
+function updateEventTags() {
   // create array of organizationTag objects from users JSON data
+  event_tags = [];
   fetch(EVENT_TAGS_URL)
     .then(function(response) {
       return response.json();
@@ -156,5 +204,4 @@ document.addEventListener("DOMContentLoaded", function() {
         event_tags.push(n);
       }
     })
-
-});
+}

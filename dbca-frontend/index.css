@@ -1,7 +1,7 @@
 .spanStyle {
   float: left;
   padding: 25px;
-  border-style: solid;
+  /*border-style: solid;*/
 }
 
 .imgAttr {
@@ -17,6 +17,11 @@
 
 .toggleHidden {
   display: none;
+}
+
+.editPane {
+  border-style: solid;
+  padding: 15px;
 }
 
 .editPosition {
