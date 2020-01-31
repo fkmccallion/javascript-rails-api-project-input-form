@@ -1,136 +1,182 @@
 let editHeader = {};
+let displayContainer = document.querySelector('main');
 
 // build search, result and edit pane templates
 document.addEventListener("DOMContentLoaded", function() {
 
-  // create edit link to show and hide edit pane
-  let editButton = document.createElement('button');
-  editButton.setAttribute('id', 'edit');
-  editButton.classList.add('editPosition');
-  editButton.innerHTML = 'edit';
-  editButton.addEventListener('click', function(event) {
-    event.preventDefault();
-    if (editButton.innerHTML === 'edit') {
-      editPane.classList.remove('toggleHidden');
-      editButton.innerHTML = 'close';
-    } else {
-      editPane.classList.add('toggleHidden');
-      editButton.innerHTML = 'edit';
-    }
-  });
+  displayPane();
+  editPane();
+  let hr = document.createElement('hr')
+  displayContainer.appendChild(hr);
+  searchPane();
+  resultPane();
 
-  // create edit pane
+});
+
+
+
+// create edit pane
+function editPane() {
+
+  // create editPane container
   let editPane = document.createElement('div');
   editPane.setAttribute('id', 'edit');
   editPane.classList.add('editPane');
   editPane.classList.add('toggleHidden');
 
-  // create add functionality to edit pane
-  let addOrg = document.createElement('button');
-  addOrg.innerHTML = 'Add Organization';
-  addOrg.addEventListener('click', function(event) {
-    addOrg.classList.add('toggleHidden');
-    addEvent.classList.add('toggleHidden');
-    editHeader = document.createElement('h4');
-    editHeader.innerHTML = 'Add Organization';
-    let createdForm = createForm('organization');
-    editPane.appendChild(editHeader);
-    editPane.appendChild(createdForm);
-  });
-  let addEvent = document.createElement('button');
-  addEvent.innerHTML = 'Add Event';
-  addEvent.addEventListener('click', function(event) {
-    addOrg.classList.add('toggleHidden');
-    addEvent.classList.add('toggleHidden');
-    editHeader = document.createElement('h4');
-    editHeader.innerHTML = 'Add Event';
-    let createdForm = createForm('event');
-    editPane.appendChild(editHeader);
-    editPane.appendChild(createdForm);
-  });
+    // create add organization functionality to edit pane
+    let addOrg = document.createElement('button');
+    addOrg.innerHTML = 'Add Organization';
+    addOrg.addEventListener('click', function(event) {
+      addOrg.classList.add('toggleHidden');
+      addEvent.classList.add('toggleHidden');
+      editHeader = document.createElement('h4');
+      editHeader.innerHTML = 'Add Organization';
+      let createdForm = createForm('organization');
+      editPane.appendChild(editHeader);
+      editPane.appendChild(createdForm);
+    });
+
+    // create add event functionality to edit pane
+    let addEvent = document.createElement('button');
+    addEvent.innerHTML = 'Add Event';
+    addEvent.addEventListener('click', function(event) {
+      addOrg.classList.add('toggleHidden');
+      addEvent.classList.add('toggleHidden');
+      editHeader = document.createElement('h4');
+      editHeader.innerHTML = 'Add Event';
+      let createdForm = createForm('event');
+      editPane.appendChild(editHeader);
+      editPane.appendChild(createdForm);
+    });
+
+    // create form for creating new organization or event
+    function createForm(type) {
+
+      // create template
+      let formTemplate = document.createElement('form');
+
+        // add name input
+        let inputName = document.createElement('input');
+        inputName.setAttribute('type', 'text');
+        inputName.setAttribute('name', 'name');
+        inputName.setAttribute('placeholder', 'Name')
+
+        // add description input
+        let inputDescription = document.createElement('input');
+        inputDescription.setAttribute('type', 'text');
+        inputDescription.setAttribute('name', 'description');
+        inputDescription.setAttribute('placeholder', 'Description')
+
+        // add imageurl input
+        let inputImageUrl = document.createElement('input');
+        inputImageUrl.setAttribute('type', 'text');
+        inputImageUrl.setAttribute('name', 'image')
+        inputImageUrl.setAttribute('placeholder', 'Image URL');
+
+        // add category input
+        let inputCategory = document.createElement('input');
+        inputCategory.setAttribute('type', 'text');
+        inputCategory.setAttribute('name', 'category')
+        inputCategory.setAttribute('placeholder', 'Category');
+
+        // add tag input
+        let inputTag = document.createElement('input');
+        inputTag.setAttribute('type', 'text');
+        inputTag.setAttribute('name', 'image')
+        inputTag.setAttribute('placeholder', 'Tag');
+
+        // add line break for submit button
+        let br = document.createElement('br');
+
+        // add submit button and submit action
+        let submitButton = document.createElement('input');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('value', 'Submit');
+        submitButton.addEventListener('click', function(event) {
+
+          event.preventDefault();
+
+          let configObj = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              'name': `${inputName.value}`,
+              'description': `${inputDescription.value}`,
+              'image': `${inputImageUrl.value}`,
+              'category': `${inputCategory.value}`,
+              'tag': `${inputTag.value}`
+            })
+          };
+
+          if (type === 'organization') {
+            fetch(ORGANIZATIONS_URL, configObj);
+            updateObjects();
+          } else {
+            fetch(EVENTS_URL, configObj);
+            updateObjects();
+          }
+
+          formTemplate.reset();
+          addOrg.classList.remove('toggleHidden');
+          addEvent.classList.remove('toggleHidden');
+          editPane.classList.add('toggleHidden');
+          formTemplate.classList.add('toggleHidden');
+          editHeader.classList.add('toggleHidden');
+          editButton.innerHTML = 'edit';
+        })
+
+      formTemplate.appendChild(inputName);
+      formTemplate.appendChild(inputDescription);
+      formTemplate.appendChild(inputImageUrl);
+      formTemplate.appendChild(inputCategory);
+      formTemplate.appendChild(inputTag);
+      formTemplate.appendChild(br);
+      formTemplate.appendChild(submitButton);
+
+      return formTemplate;
+
+    }
+
+    // add edit button functionality
+    let editButton = document.createElement('button');
+    editButton.setAttribute('id', 'edit');
+    editButton.classList.add('editPosition');
+    editButton.innerHTML = 'edit';
+    editButton.addEventListener('click', function(event) {
+      if (editButton.innerHTML === 'edit') {
+        editPane.classList.remove('toggleHidden');
+        editButton.innerHTML = 'close';
+      } else {
+        editPane.classList.add('toggleHidden');
+        editButton.innerHTML = 'edit';
+      }
+    });
+
+    displayContainer.appendChild(editButton);
+
   editPane.appendChild(addOrg);
   editPane.appendChild(addEvent);
+  displayContainer.appendChild(editPane);
 
-  // generate form
-  function createForm(type) {
+}
 
-    let formTemplate = document.createElement('form');
-    let inputName = document.createElement('input');
-    inputName.setAttribute('type', 'text');
-    inputName.setAttribute('name', 'name');
-    inputName.setAttribute('placeholder', 'Name')
-    let inputDescription = document.createElement('input');
-    inputDescription.setAttribute('type', 'text');
-    inputDescription.setAttribute('name', 'description');
-    inputDescription.setAttribute('placeholder', 'Description')
-    let inputImageUrl = document.createElement('input');
-    inputImageUrl.setAttribute('type', 'text');
-    inputImageUrl.setAttribute('name', 'image')
-    inputImageUrl.setAttribute('placeholder', 'Image URL');
-    let inputCategory = document.createElement('input');
-    inputCategory.setAttribute('type', 'text');
-    inputCategory.setAttribute('name', 'category')
-    inputCategory.setAttribute('placeholder', 'Category');
-    let inputTag = document.createElement('input');
-    inputTag.setAttribute('type', 'text');
-    inputTag.setAttribute('name', 'image')
-    inputTag.setAttribute('placeholder', 'Tag');
-    let br = document.createElement('br');
-    let submitButton = document.createElement('input');
-    submitButton.setAttribute('type', 'submit');
-    submitButton.setAttribute('value', 'Submit');
-
-    formTemplate.appendChild(inputName);
-    formTemplate.appendChild(inputDescription);
-    formTemplate.appendChild(inputImageUrl);
-    formTemplate.appendChild(inputCategory);
-    formTemplate.appendChild(inputTag);
-    formTemplate.appendChild(br);
-    formTemplate.appendChild(submitButton);
-
-    submitButton.addEventListener('click', function(event) {
-
-      event.preventDefault();
-
-      let configObj = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          'name': `${inputName.value}`,
-          'description': `${inputDescription.value}`,
-          'image': `${inputImageUrl.value}`,
-          'category': `${inputCategory.value}`,
-          'tag': `${inputTag.value}`
-        })
-      };
-
-      if (type === 'organization') {
-        fetch(ORGANIZATIONS_URL, configObj);
-        updateObjects();
-      } else {
-        fetch(EVENTS_URL, configObj);
-        updateObjects();
-      }
-
-      formTemplate.reset();
-      addOrg.classList.remove('toggleHidden');
-      addEvent.classList.remove('toggleHidden');
-      editPane.classList.add('toggleHidden');
-      formTemplate.classList.add('toggleHidden');
-      editHeader.classList.add('toggleHidden');
-      editButton.innerHTML = 'edit';
-    })
-
-    return formTemplate;
-
-  }
+// create display pane
+function displayPane() {
 
   // create display pane
   let displayPane = document.createElement('div');
   displayPane.setAttribute('id', 'display');
+
+  displayContainer.appendChild(displayPane);
+
+}
+
+// create search pane
+function searchPane() {
 
   // create search pane
   let searchPane = document.createElement('div');
@@ -148,6 +194,13 @@ document.addEventListener("DOMContentLoaded", function() {
   tagSpan.classList.add('spanStyle');
   searchPane.appendChild(tagSpan);
 
+  displayContainer.appendChild(searchPane);
+
+}
+
+// create result pane
+function resultPane() {
+
   // create result pane
   let resultPane = document.createElement('div');
   resultPane.setAttribute('id', 'result');
@@ -164,19 +217,9 @@ document.addEventListener("DOMContentLoaded", function() {
   eventSpan.classList.add('spanStyle');
   resultPane.appendChild(eventSpan);
 
-  // append search and result pane to display container
-  let displayContainer = document.querySelector('main');
-  displayContainer.appendChild(editButton);
-  displayContainer.appendChild(displayPane);
-  displayContainer.appendChild(editPane);
-  let hr = document.createElement('hr')
-  displayContainer.appendChild(hr);
-  displayContainer.appendChild(searchPane);
   displayContainer.appendChild(resultPane);
 
-});
-
-
+}
 
 // increment cat, tag, org, or event rank
 function updateRank(o) {

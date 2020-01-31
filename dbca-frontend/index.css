@@ -1,7 +1,6 @@
 .spanStyle {
   float: left;
   padding: 25px;
-  /*border-style: solid;*/
 }
 
 .imgAttr {
@@ -25,5 +24,7 @@
 }
 
 .editPosition {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
