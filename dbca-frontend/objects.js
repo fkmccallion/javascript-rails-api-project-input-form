@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "https://dbca-backend-test.herokuapp.com/"
 
 const USERS_URL = `${BASE_URL}/users`
 const HOURS_URL = `${BASE_URL}/hours`
