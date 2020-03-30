@@ -48,12 +48,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     crass (1.0.6)
     debug_inspector (0.0.3)
     erubis (2.7.0)
     execjs (2.7.0)
-    ffi (1.12.1)
+    ffi (1.12.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (0.9.5)
@@ -73,9 +73,10 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.0)
-    nokogiri (1.10.7)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
-    rack (1.6.12)
+    pg (0.21.0)
+    rack (1.6.13)
     rack-cors (1.0.6)
       rack (>= 1.6.0)
     rack-test (0.6.3)
@@ -134,7 +135,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.13)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -160,13 +160,13 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  pg (~> 0.18)
   rack-cors
   rails (= 4.2.11)
   rails-api
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
-  sqlite3 (~> 1.3.6)
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

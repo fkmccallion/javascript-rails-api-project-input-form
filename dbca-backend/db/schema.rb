@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20200127203247) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "categories", force: :cascade do |t|
     t.text     "name"
     t.integer  "rank"
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20200127203247) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "event_categories", ["category_id"], name: "index_event_categories_on_category_id"
-  add_index "event_categories", ["event_id"], name: "index_event_categories_on_event_id"
+  add_index "event_categories", ["category_id"], name: "index_event_categories_on_category_id", using: :btree
+  add_index "event_categories", ["event_id"], name: "index_event_categories_on_event_id", using: :btree
 
   create_table "event_tags", force: :cascade do |t|
     t.integer  "event_id"
@@ -38,8 +41,8 @@ ActiveRecord::Schema.define(version: 20200127203247) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "event_tags", ["event_id"], name: "index_event_tags_on_event_id"
-  add_index "event_tags", ["tag_id"], name: "index_event_tags_on_tag_id"
+  add_index "event_tags", ["event_id"], name: "index_event_tags_on_event_id", using: :btree
+  add_index "event_tags", ["tag_id"], name: "index_event_tags_on_tag_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.text     "name"
@@ -57,8 +60,8 @@ ActiveRecord::Schema.define(version: 20200127203247) do
     t.integer  "rank"
   end
 
-  add_index "events", ["hour_id"], name: "index_events_on_hour_id"
-  add_index "events", ["organization_id"], name: "index_events_on_organization_id"
+  add_index "events", ["hour_id"], name: "index_events_on_hour_id", using: :btree
+  add_index "events", ["organization_id"], name: "index_events_on_organization_id", using: :btree
 
   create_table "hours", force: :cascade do |t|
     t.string   "sunStart"
@@ -87,8 +90,8 @@ ActiveRecord::Schema.define(version: 20200127203247) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "organization_categories", ["category_id"], name: "index_organization_categories_on_category_id"
-  add_index "organization_categories", ["organization_id"], name: "index_organization_categories_on_organization_id"
+  add_index "organization_categories", ["category_id"], name: "index_organization_categories_on_category_id", using: :btree
+  add_index "organization_categories", ["organization_id"], name: "index_organization_categories_on_organization_id", using: :btree
 
   create_table "organization_tags", force: :cascade do |t|
     t.integer  "organization_id"
@@ -97,8 +100,8 @@ ActiveRecord::Schema.define(version: 20200127203247) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "organization_tags", ["organization_id"], name: "index_organization_tags_on_organization_id"
-  add_index "organization_tags", ["tag_id"], name: "index_organization_tags_on_tag_id"
+  add_index "organization_tags", ["organization_id"], name: "index_organization_tags_on_organization_id", using: :btree
+  add_index "organization_tags", ["tag_id"], name: "index_organization_tags_on_tag_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
     t.text     "name"
@@ -119,8 +122,8 @@ ActiveRecord::Schema.define(version: 20200127203247) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "organizations", ["hour_id"], name: "index_organizations_on_hour_id"
-  add_index "organizations", ["user_id"], name: "index_organizations_on_user_id"
+  add_index "organizations", ["hour_id"], name: "index_organizations_on_hour_id", using: :btree
+  add_index "organizations", ["user_id"], name: "index_organizations_on_user_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.text     "name"
